@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
     }
     catch(err){
         console.log(err)
-        return res.statuts(500).json('Internall serv error', err)
+        return res.status(500).json('Internall serv error', err)
     }
 }
 
@@ -53,6 +53,6 @@ export const loginUser = async (req, res) => {
    
     catch(err){
         console.log(err)
-        return res.statuts(500).json('Internall serv error', err)
+        return res.status(500).json('Internall serv error', err)
     }
 }
