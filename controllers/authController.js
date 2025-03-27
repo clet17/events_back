@@ -39,16 +39,16 @@ export const loginUser = async (req, res) => {
     try{
         const user = await User.findOne({email})
         if(!user){
-            return res.status(404).json('Email ou MDP invalide')
+            return res.status(401).json('Email ou MDP invalide')
         }
         
         const comparePassword = await bcrypt.compare(password, user.password)
         if(!comparePassword){
-            return res.status(404).json('Email ou MDP invalide')
+            return res.status(401).json('Email ou MDP invalide')
         }
 
         const token = await jwt.sign({id : user._id}, JWT_SECRET)
-        return res.status(200).json(token)
+        return res.status(200).json({message : 'Bienvenue', token})
     }
    
     catch(err){
@@ -56,3 +56,5 @@ export const loginUser = async (req, res) => {
         return res.status(500).json('Internall serv error', err)
     }
 }
+
+

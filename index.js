@@ -5,6 +5,8 @@ import authRouter from './routes/auth.js'
 import eventRouter from './routes/events.js'
 import cors from 'cors'
 import servicesRouter from './routes/services.js'
+import { authMiddleware } from './middlewares/authMiddleware.js'
+import userRouter from './routes/users.js'
 
 const app = express()
 
@@ -14,7 +16,7 @@ const PORT = process.env.PORT
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
-app.use('/api', authRouter, eventRouter, servicesRouter)
+app.use('/api', authRouter, eventRouter, servicesRouter, userRouter)
 
 
 app.get('/', (req, res) => {
