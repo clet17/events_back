@@ -16,6 +16,21 @@ export const getAllServices = async (req, res) => {
     }
 }
 
+export const getServicesById = async (req, res) => {
+    const {id} = req.params
+
+    try {
+        const servicesById = await Service.findById().populate('userID', '-password')
+        if(!servicesById){
+            //retourne un message d'erreur
+            return res.status(402).json('Service pas trouvé')
+        }
+    }
+    catch(err){
+        console.log(err)
+        return res.status(500).json('Internall serv error')
+    }
+}
 
 export const createService = async (req, res) => {
     try {
