@@ -20,7 +20,8 @@ export const createUser = async (req, res) => {
             first_name,
             last_name,
             email,
-            password : hashedPassword
+            password : hashedPassword,
+            image : 'public/images/' + req.file.filename
         })
 
         newUser.save()
@@ -47,6 +48,7 @@ export const loginUser = async (req, res) => {
             return res.status(401).json('Email ou MDP invalide')
         }
 
+        console.log('JWT_SECRET lors de la génération:', JWT_SECRET)
         const token = await jwt.sign({id : user._id}, JWT_SECRET)
         return res.status(200).json({message : 'Bienvenue', token})
     }
