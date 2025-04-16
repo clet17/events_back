@@ -34,8 +34,18 @@ export const getServicesById = async (req, res) => {
 }
 
 export const createService = async (req, res) => {
+    const {title, description, price, category, address, awaitbility, userID} = req.body
     try {
-        const newService = await Service.create(req.body)
+        const newService = await Service.create({
+            title,
+            description,
+            price,
+            category,
+            address,
+            awaitbility,
+            userID : req.user.id,
+            image : 'public/images/' + req.file.filename
+        })
         if(newService){
             return res.status(201).json({message : 'service crée', newService})
         }
