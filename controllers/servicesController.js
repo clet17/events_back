@@ -20,11 +20,12 @@ export const getServicesById = async (req, res) => {
     const {id} = req.params
 
     try {
-        const servicesById = await Service.findById().populate('userID', '-password')
+        const servicesById = await Service.findById(id).populate('userID', '-password')
         if(!servicesById){
             //retourne un message d'erreur
             return res.status(402).json('Service pas trouvé')
         }
+        return res.status(200).json(servicesById)
     }
     catch(err){
         console.log(err)
@@ -36,7 +37,7 @@ export const createService = async (req, res) => {
     try {
         const newService = await Service.create(req.body)
         if(newService){
-            return res.status(201).json('service crée')
+            return res.status(201).json({message : 'service crée', newService})
         }
     }
     catch(err){

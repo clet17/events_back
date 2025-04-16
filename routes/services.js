@@ -7,7 +7,7 @@ const servicesRouter = Router()
 
 
 servicesRouter.get('/services', getAllServices)
-servicesRouter.get('/services/:id', getServicesById)
+servicesRouter.get('/service/:id', getServicesById)
 
 servicesRouter.post('/services', authMiddleware, createService)
 
