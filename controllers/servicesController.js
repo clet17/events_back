@@ -7,7 +7,7 @@ export const getAllServices = async (req, res) => {
         if(services.length < 1){
             return res.status(400).json('services introuvable')
         }
-        console.log(services)
+        // console.log(services)
         return res.status(200).json(services)
     }
     catch(err){
@@ -44,7 +44,7 @@ export const createService = async (req, res) => {
             address,
             awaitbility,
             userID : req.user.id,
-            image : 'public/images/' + req.file.filename
+            image: req.file ? 'public/images/' + req.file.filename : null
         })
         if(newService){
             return res.status(201).json({message : 'service crée', newService})

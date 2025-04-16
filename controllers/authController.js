@@ -21,11 +21,12 @@ export const createUser = async (req, res) => {
             last_name,
             email,
             password : hashedPassword,
-            image : 'public/images/' + req.file.filename
+            image: req.file ? 'public/images/' + req.file.filename : null
         })
 
         newUser.save()
-        return res.status(201).json(`Welcome sur ce site ${first_name}`)
+        const token = await jwt.sign({ id: newUser._id }, JWT_SECRET)
+        return res.status(201).json({message : `Welcome sur ce site ${first_name}`, token})
     }
     catch(err){
         console.log(err)
@@ -48,7 +49,7 @@ export const loginUser = async (req, res) => {
             return res.status(401).json('Email ou MDP invalide')
         }
 
-        console.log('JWT_SECRET lors de la génération:', JWT_SECRET)
+        // console.log('JWT_SECRET lors de la génération:', JWT_SECRET)
         const token = await jwt.sign({id : user._id}, JWT_SECRET)
         return res.status(200).json({message : 'Bienvenue', token})
     }
