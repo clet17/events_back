@@ -55,3 +55,20 @@ export const createService = async (req, res) => {
         return res.status(500).json('Internall serv error', err)
     }
 }
+
+
+export const deleteServiceByID = async (req, res) => {
+    console.log('ça va sup')
+    const {id} = req.params
+    try {
+       const deleteService = await Service.findByIdAndDelete(id)
+       if (!deleteService){
+        return res.status(404).json('erreur lors de la suppression du service')
+       }
+       return res.status(203).json('Service supprimé')
+    }
+    catch(err){
+        console.log(err)
+        return res.status(500).json('Internall serv error', err)
+    }
+}

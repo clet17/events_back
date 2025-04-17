@@ -17,6 +17,7 @@ export const authMiddleware = async (req, res, next) => {
             return res.status(403).json('Accès refusé : mauvais token')
         }
         req.user = verify 
+        console.log(req.user)
         next()
     }
     catch(err){
